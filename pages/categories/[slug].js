@@ -4,6 +4,7 @@ import Link from 'next/link'
 import React from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
+import AverageReview from '@/components/AverageReview'
 
 const Category = ({ category }) => {
 
@@ -47,7 +48,7 @@ const Category = ({ category }) => {
                       <Typography sx={classes.subitle} variant='subtitle1'>{business.description}</Typography>
                     </Grid>
                     <Grid item xs={6}>
-                        <Typography variant='h5'>Todo Reviews</Typography>
+                        <AverageReview value={3.5} />
                         <Typography variant='subtitle1'>{business.hours}</Typography>
                         <Typography variant='subtitle1'>{business.street_address} {business.city}, {business.region} {business.postal_code} {business.country}</Typography>
                     </Grid>

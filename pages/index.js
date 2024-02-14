@@ -1,20 +1,31 @@
 import { Grid, Card, CardHeader, Avatar } from '@mui/material'
 import Layout from '@/components/Layout';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 
 export default function Home({ categories }) {
   const classes = {
     root: {
       margin: '25px auto',
       maxWidth: '95vw'
+    },
+
+    categoryCard: {
+      cursor: 'pointer'
     }
+
+
   }
+
+  const router = useRouter()
+
+
   return (
     <Layout>
       <Grid container sx={classes.root} spacing={3}>
         {categories.map(category => (
           <Grid item xs={12} md={4}>
-          <Card>
+          <Card onClick={() => router.push(`/categories/${category.slug}`)} sx={classes.categoryCard}>
             <CardHeader
               avatar={
                 <Avatar arial-label='category'>
