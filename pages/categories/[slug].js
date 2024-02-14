@@ -110,8 +110,6 @@ const Category = ({ category, averageReviews }) => {
                   onChange={e => setAvgReview(e.target.value)}
                   value={avgReview}
                   > 
-                    <MenuItem value={1}>1+ Stars</MenuItem>
-                    <MenuItem value={2}>2+ Stars</MenuItem>
                     <MenuItem value={3}>3+ Stars</MenuItem>
                     <MenuItem value={4}>4+ Stars</MenuItem>
                     <MenuItem value={5}>5 Stars</MenuItem>
@@ -125,7 +123,7 @@ const Category = ({ category, averageReviews }) => {
         </Grid>
         <Grid item xs={12} md={9}>
           {category.business.map(business => (
-            (!price || price === business.price_range) && (!numReviews || business.reviews.length >= numReviews) && (!avgReview || AverageReview[business.url] >= avgReview) && (
+            (!price || price === business.price_range) && (!numReviews || business.reviews.length >= numReviews) && (!avgReview || averageReviews[business.url] >= avgReview) && (
             <Card key={business.name} sx={classes.card} onClick={() => handleBusinessClick(business)}>
               <Box>
                 {AverageReview}
