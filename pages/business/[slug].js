@@ -80,7 +80,7 @@ export async function getServerSideProps({ query: {slug}} ) {
    
   }
 
-  console.log('hello')
+
 
   return {
     props: {
