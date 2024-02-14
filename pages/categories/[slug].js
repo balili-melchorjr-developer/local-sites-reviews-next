@@ -24,9 +24,9 @@ const Category = ({ category, averageReviews }) => {
   }
   
   const router = useRouter()
-  const [price, setPrice] = useState(null)
-  const [numReviews, setNumReviews] = useState(null)
-  const [avgReview, setAvgReview] = useState(null)
+  const [price, setPrice] = useState('')
+  const [numReviews, setNumReviews] = useState('')
+  const [avgReview, setAvgReview] = useState('')
 
 
   const handleBusinessClick = (business) => {
@@ -34,9 +34,9 @@ const Category = ({ category, averageReviews }) => {
   }
 
   const handleClearFilters = () => {
-    setPrice(null)
-    setNumReviews(null)
-    setAvgReview(null)
+    setPrice('')
+    setNumReviews('')
+    setAvgReview('')
   }
 
   return (

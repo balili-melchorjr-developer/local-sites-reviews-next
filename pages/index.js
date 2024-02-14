@@ -24,7 +24,7 @@ export default function Home({ categories }) {
     <Layout>
       <Grid container sx={classes.root} spacing={3}>
         {categories.map(category => (
-          <Grid item xs={12} md={4}>
+          <Grid key={category.name} item xs={12} md={4}>
           <Card onClick={() => router.push(`/categories/${category.slug}`)} sx={classes.categoryCard}>
             <CardHeader
               avatar={
