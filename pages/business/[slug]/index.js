@@ -1,6 +1,6 @@
 import Layout from '@/components/Layout'
-import { Button, Box, Card, Grid, List, ListItem, ListItemText, Typography, Divider, FormControl, InputLabel, Select, MenuItem } from '@mui/material'
-import React from 'react'
+import { Button, Box, Card, Grid, List, ListItem, ListItemText, Typography, Divider, FormControl, InputLabel, Select, MenuItem, CardContent } from '@mui/material'
+import React, { useState } from 'react'
 import axios from 'axios'
 import AverageReview from '@/components/AverageReview'
 
@@ -25,6 +25,8 @@ const BusinessPage = ({business, AverageReviews}) => {
       marginTop: '15px'
     }
   }
+
+  const [reviewFilter, setReviewFilter] = useState('')
 
   return (
     <Layout>
@@ -70,12 +72,14 @@ const BusinessPage = ({business, AverageReviews}) => {
                 <Divider/>
               </Grid>
 
-              <Grid item xs={12}>
+              <Grid item xs={12} sx={{marginTop: '15px'}}>
                 <FormControl fullWidth>
                   <InputLabel id='reviews'>Review</InputLabel>
                   <Select
                     labelId='reviews'
                     id='reviewsComponent'
+                    value={reviewFilter}
+                    onChange={e => setReviewFilter(e.target.value)}
                   >
                     <MenuItem value={1}>1+ Stars</MenuItem>
                     <MenuItem value={2}>2+ Stars</MenuItem>
@@ -86,11 +90,27 @@ const BusinessPage = ({business, AverageReviews}) => {
                 </FormControl>
               </Grid>
 
-              <Grid item>
-                <Button variant='outline' color='secondary' xs={classes.clearFilters}>Clear Filters</Button>
+              <Grid item sx={{marginTop: '15px'}}>
+                <Button variant='outline' color='secondary' xs={classes.clearFilters} onClick={() => setReviewFilter('')}>Clear Filters</Button>
               </Grid>
             </Grid>
           </Box>
+        </Grid>
+
+        <Grid item xs={12} md={8} sx={{margin: 'auto'}}>
+          {business && business.reviews && business.reviews.map(review => (
+            reviewFilter <= review.stars && (
+              <Card sx={{marginTop: '25px'}}>
+                <Box>
+                  <CardContent>
+                    <AverageReview value={review.stars} />
+                    <Typography variant='h5'>{review.title}</Typography>
+                    <Typography variant='subtitle1'>{review.content}</Typography>
+                  </CardContent>
+                </Box>
+              </Card>
+            )            
+          ))}
         </Grid>
       </Grid>
     </Layout>
