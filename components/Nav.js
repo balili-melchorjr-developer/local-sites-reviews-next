@@ -1,8 +1,10 @@
 import { AppBar, IconButton, Typography, Toolbar, Drawer, List, ListItem, ListItemIcon, ListItemText } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'; 
-import React, {useState}from 'react'
+import React, { useState, useContext } from 'react'
 import { useRouter } from 'next/router';
 import HomeIcon from '@mui/icons-material/Home';
+import AuthenticationContext from '@/context/AuthenticationContext';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const Nav = () => {
 
@@ -23,6 +25,8 @@ const Nav = () => {
 
 	const [toggle, setToggle] = useState(false)
 	const router = useRouter()
+
+	const {user} = useContext(AuthenticationContext)
 
 	const toggleDrawer = (value) => (event) => {
 		if (event.type === 'keydown' && (event.key === 'Tab' || event.ket === 'Shift')) {
@@ -51,6 +55,18 @@ const Nav = () => {
 									<ListItemIcon><HomeIcon /></ListItemIcon>
 									<ListItemText primary='Home' />
 								</ListItem>
+								{user ? (
+									<ListItem button onClick={() => router.push('/logout')}>
+										<ListItemIcon><AccountCircleIcon /></ListItemIcon>
+										<ListItemText primary='Sign Out' />
+									</ListItem>	
+								) : (
+									<ListItem button onClick={() => router.push('/login')}>
+										<ListItemIcon><AccountCircleIcon /></ListItemIcon>
+										<ListItemText primary='Sign In' />
+									</ListItem>	
+								)}													
+								
 							</List>
 						</div>
 					</Drawer>

@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import "@/styles/globals.css";
+import { AuthenticationProvider } from "@/context/AuthenticationContext";
 
 export default function App({ Component, pageProps }) {
   useEffect(() => {
@@ -8,5 +9,10 @@ export default function App({ Component, pageProps }) {
       jssStyles.parentElement.removeChild(jssStyles)
     }
   })
-  return <Component {...pageProps} />;
+  return (
+    // This is for to access all the pages that authenticated
+    <AuthenticationProvider> 
+      <Component {...pageProps} />
+    </AuthenticationProvider>  
+  )
 }

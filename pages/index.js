@@ -14,12 +14,10 @@ export default function Home({ categories }) {
       cursor: 'pointer'
     }
 
-
   }
-
+  
   const router = useRouter()
-
-
+  
   return (
     <Layout>
       <Grid container sx={classes.root} spacing={3}>
