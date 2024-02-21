@@ -51,17 +51,15 @@ const Category = ({ category, averageReviews }) => {
               </Grid>
             </Grid>
 
-            <Grid container>
-              <Grid item xs={12}>
+            <Grid container sx={{marginTop: '15px'}}>
+              <Grid item xs={12} sx={{marginTop: '15px'}}>
                 <FormControl fullWidth>
-                  <InputLabel id='price' sx={{ color: 'white'}}>Price</InputLabel>
+                  <InputLabel id='price' >Price</InputLabel>
                   <Select
                     labelId='price'
                     id='priceInput'
                     label='Price'
-                    sx={{ color: 'white', borderColor: 'white', '& .MuiOutlinedInput-notchedOutline': {
-                      borderColor: 'white'                   
-                  },}}
+                    
                   onChange={e => setPrice(e.target.value)}
                   value={price}
                   >
@@ -76,16 +74,14 @@ const Category = ({ category, averageReviews }) => {
                 <Divider />
               </Grid>
 
-              <Grid item xs={12}>
+              <Grid item xs={12} sx={{marginTop: '15px'}}>
                 <FormControl fullWidth>
-                  <InputLabel id='numReviews' sx={{ color: 'white'}}>Number of Reviews</InputLabel>
+                  <InputLabel id='numReviews' >Number of Reviews</InputLabel>
                   <Select
                     labelId='numReviews'
                     id='numReviewsInput'
                     label='Number of Reviews'
-                    sx={{ color: 'white', borderColor: 'white', '& .MuiOutlinedInput-notchedOutline': {
-                      borderColor: 'white'                   
-                  },}}
+                    
                   onChange={e => setNumReviews(e.target.value)}
                   value={numReviews}
                   >
@@ -97,16 +93,14 @@ const Category = ({ category, averageReviews }) => {
                 <Divider />
               </Grid>
 
-              <Grid item xs={12}>
+              <Grid item xs={12} sx={{marginTop: '15px'}}>
                 <FormControl fullWidth>
-                  <InputLabel id='avgReview' sx={{ color: 'white'}}>Average Review</InputLabel>
+                  <InputLabel id='avgReview' >Average Review</InputLabel>
                   <Select
                     labelId='avgReview'
                     id='avgReviewInput'
                     label='Average Review'
-                    sx={{ color: 'white', borderColor: 'white', '& .MuiOutlinedInput-notchedOutline': {
-                      borderColor: 'white'                   
-                  },}}
+                    
                   onChange={e => setAvgReview(e.target.value)}
                   value={avgReview}
                   > 
@@ -116,6 +110,10 @@ const Category = ({ category, averageReviews }) => {
                   </Select>
                 </FormControl>
                 <Divider />
+              </Grid>
+
+              <Grid item xs={12} sx={{marginTop: '15px'}}>
+                <Button variant='outlined' color='secondary' sx={{ marginTop: '15px'}} onClick={handleClearFilters}>Clear Filter</Button>
               </Grid>
 
             </Grid>
@@ -148,9 +146,7 @@ const Category = ({ category, averageReviews }) => {
             )
           ))}
         </Grid>
-        <Grid>
-          <Button variant='outlined' color='secondary' sx={{ marginTop: '15px'}} onClick={handleClearFilters}>Clear Filter</Button>
-        </Grid>
+        
       </Grid>
     </Layout>
   )

@@ -1,5 +1,5 @@
 import Layout from '@/components/Layout'
-import { Button, Card, Grid, List, ListItem, ListItemText, Typography } from '@mui/material'
+import { Button, Box, Card, Grid, List, ListItem, ListItemText, Typography, Divider, FormControl, InputLabel, Select, MenuItem } from '@mui/material'
 import React from 'react'
 import axios from 'axios'
 import AverageReview from '@/components/AverageReview'
@@ -9,7 +9,8 @@ const BusinessPage = ({business, AverageReviews}) => {
   const classes = {
     root: {
       marginTop: '75px',
-      maxWidth: '95vw'
+      maxWidth: '95vw',
+      padding: '0 25px'
     },
 
     addReview: {
@@ -18,6 +19,10 @@ const BusinessPage = ({business, AverageReviews}) => {
 
     description: {
       paddingTop: '15px'
+    },
+
+    clearFilters: {
+      marginTop: '15px'
     }
   }
 
@@ -55,6 +60,39 @@ const BusinessPage = ({business, AverageReviews}) => {
           </Card>
         </Grid>
       </Grid>
+
+      <Grid container sx={classes.root}>
+        <Grid item xs={12} md={3}>
+          <Box>
+            <Grid container>
+              <Grid item xs={12}>
+                <Typography variant='h5'>Filter the reviews</Typography>
+                <Divider/>
+              </Grid>
+
+              <Grid item xs={12}>
+                <FormControl fullWidth>
+                  <InputLabel id='reviews'>Review</InputLabel>
+                  <Select
+                    labelId='reviews'
+                    id='reviewsComponent'
+                  >
+                    <MenuItem value={1}>1+ Stars</MenuItem>
+                    <MenuItem value={2}>2+ Stars</MenuItem>
+                    <MenuItem value={3}>3+ Stars</MenuItem>
+                    <MenuItem value={4}>4+ Stars</MenuItem>
+                    <MenuItem value={5}>5 Stars</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+
+              <Grid item>
+                <Button variant='outline' color='secondary' xs={classes.clearFilters}>Clear Filters</Button>
+              </Grid>
+            </Grid>
+          </Box>
+        </Grid>
+      </Grid>
     </Layout>
   )
 }
@@ -76,11 +114,8 @@ export async function getServerSideProps({ query: {slug}} ) {
     const inverse = 1 / 2
 
     avgReview = Math.round((totalReviewsStars / data.results[0].reviews.length) / inverse) * inverse
-  
-   
+     
   }
-
-
 
   return {
     props: {
