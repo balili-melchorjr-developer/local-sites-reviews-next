@@ -7,10 +7,13 @@ import Link from 'next/link';
 import { Login } from '@mui/icons-material';
 import AuthenticationContext from '@/context/AuthenticationContext';
 
-export default function LoginPage() {
+export default function RegisterPage() {
 
   const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('') 
+  const [password2, setPassword2] = useState('') 
+  
 
   const classes = {
     root: {
@@ -30,32 +33,38 @@ export default function LoginPage() {
   
   const router = useRouter()
 
-  const {login} = useContext(AuthenticationContext)
+//   const {login} = useContext(AuthenticationContext)
 
   const submitHandler = (e) => {
     e.preventDefault()
-    login({username, password})
+    // login({username, password})
   }
   
   return (
     <Layout>
       <div>
-        <Typography variant='h3'>Login</Typography>
+        <Typography variant='h3'>Register</Typography>
         <Card>
             <CardContent>
                 <form onSubmit={submitHandler}>
                     <div >
                         <TextField sx={{ marginTop: '20px'}} label='Username' fullWidth onChange={e => setUsername(e.target.value)} value={username}/>
                     </div>
+                    <div >
+                        <TextField sx={{ marginTop: '20px'}} label='Email' fullWidth onChange={e => setEmail(e.target.value)} value={email}/>
+                    </div>
                     <div>
                         <TextField sx={{ marginTop: '20px'}} label='Password' inputProps={{ 'type': 'password' }} fullWidth onChange={e => setPassword(e.target.value)} value={password}/>
                     </div>
                     <div>
-                        <Button sx={{ marginTop: '20px', marginBottom: '20px'}} variant='contained' color='primary' type='submit'>Login</Button>
+                        <TextField sx={{ marginTop: '20px'}} label='Confirm Password' inputProps={{ 'type': 'password' }} fullWidth onChange={e => setPassword2(e.target.value)} value={password2}/>
+                    </div>
+                    <div>
+                        <Button sx={{ marginTop: '20px', marginBottom: '20px'}} variant='contained' color='primary' type='submit'>Register</Button>
                     </div>
                     <div >
-                        <Link href='/account/registe21r'>
-                           Don't have an account? Sign Up
+                        <Link href='/account/login'>
+                           Already have an account? Sign In
                         </Link>
                     </div>
                 </form>
