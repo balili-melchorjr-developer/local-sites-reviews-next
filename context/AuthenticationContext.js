@@ -65,7 +65,12 @@ export const AuthenticationProvider = ({ children }) => {
     
     }
 
-    const register = async ({ username, email, password}) => {
+    const register = async ({ username, email, password, password2}) => {
+
+        if (password !== password2) {
+            setError('Passwords do not match')
+            return
+        }
         const config = {
             headers: {
                 'Accept': 'application/json',
@@ -161,8 +166,12 @@ export const AuthenticationProvider = ({ children }) => {
         
     }
 
+    const clearError = () => {
+        setError(null)
+    }
+
     return (
-        <AuthenticationContext.Provider value={{ user, accessToken, error, login, register, logout }}>
+        <AuthenticationContext.Provider value={{ user, accessToken, error, login, register, logout, clearError }}>
             {children}
         </AuthenticationContext.Provider>
     )

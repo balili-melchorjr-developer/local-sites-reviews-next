@@ -1,6 +1,6 @@
-import { Grid, Card, CardHeader, Avatar, Typography, CardContent, TextField, Button } from '@mui/material'
+import { Grid, Card, CardHeader, Avatar, Typography, CardContent, TextField, Button, Snackbar } from '@mui/material'
 import Layout from '@/components/Layout';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -11,6 +11,19 @@ export default function LoginPage() {
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('') 
+
+  const [open, setOpen] = useState(false)
+  const [errorMessage, setErrorMessage] = useState(null)
+
+  const { login, error, clearError } = useContext(AuthenticationContext)
+
+  useEffect(() => {
+    if(error) {
+      setErrorMessage(error)
+      setOpen(true)
+      clearError()
+    }
+  }, [error])
 
   const classes = {
     root: {
@@ -30,15 +43,27 @@ export default function LoginPage() {
   
   const router = useRouter()
 
-  const {login} = useContext(AuthenticationContext)
+  
 
   const submitHandler = (e) => {
     e.preventDefault()
     login({username, password})
   }
+
+  const handleClose = () => {
+    setOpen(false)
+  }
   
   return (
     <Layout>
+      <Snackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'center'}}
+        open={open}
+        onClose={handleClose}
+        autoHideDuration={6000}
+        message={errorMessage}
+        key={'top_center'}
+        />
       <div>
         <Typography variant='h3'>Login</Typography>
         <Card>
@@ -54,7 +79,7 @@ export default function LoginPage() {
                         <Button sx={{ marginTop: '20px', marginBottom: '20px'}} variant='contained' color='primary' type='submit'>Login</Button>
                     </div>
                     <div >
-                        <Link href='/account/registe21r'>
+                        <Link href='/account/register'>
                            Don't have an account? Sign Up
                         </Link>
                     </div>

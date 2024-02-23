@@ -1,6 +1,6 @@
-import { Grid, Card, CardHeader, Avatar, Typography, CardContent, TextField, Button } from '@mui/material'
+import { Grid, Card, CardHeader, Avatar, Typography, CardContent, TextField, Button, Snackbar } from '@mui/material'
 import Layout from '@/components/Layout';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -13,6 +13,9 @@ export default function RegisterPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('') 
   const [password2, setPassword2] = useState('') 
+
+  const [open, setOpen] = useState(false)
+  const [errorMessage, setErrorMessage] = useState(null)
   
 
   const classes = {
@@ -33,19 +36,35 @@ export default function RegisterPage() {
   
   const router = useRouter()
 
-  const {register} = useContext(AuthenticationContext)
+  const {register, error, clearError} = useContext(AuthenticationContext)
+
+  useEffect(() => {
+    if(error) {
+      setErrorMessage(error)
+      setOpen(true)
+      clearError()
+    }
+  }, [error])
 
   const submitHandler = (e) => {
-    e.preventDefault()
-   
-    if (password !== password2) {
-      console.error('Password do not match')
-    }
-     register({username, email, password})
+    e.preventDefault()    
+    register({username, email, password, password2 })
+  }
+
+  const handleClose = () => {
+    setOpen(false)
   }
   
   return (
     <Layout>
+      <Snackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'center'}}
+        open={open}
+        onClose={handleClose}
+        autoHideDuration={6000}
+        message={errorMessage}
+        key={'top_center'}
+        />
       <div>
         <Typography variant='h3'>Register</Typography>
         <Card>
