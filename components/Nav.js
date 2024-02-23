@@ -26,7 +26,7 @@ const Nav = () => {
 	const [toggle, setToggle] = useState(false)
 	const router = useRouter()
 
-	const {user} = useContext(AuthenticationContext)
+	const {user, logout} = useContext(AuthenticationContext)
 
 	const toggleDrawer = (value) => (event) => {
 		if (event.type === 'keydown' && (event.key === 'Tab' || event.ket === 'Shift')) {
@@ -34,6 +34,11 @@ const Nav = () => {
 		}
 
 		setToggle(value)
+	}
+
+	const handleLogout = async e => {
+		e.preventDefault()
+		await logout()
 	}
 
 	return (
@@ -56,15 +61,22 @@ const Nav = () => {
 									<ListItemText primary='Home' />
 								</ListItem>
 								{user ? (
-									<ListItem button onClick={() => router.push('/logout')}>
+									<ListItem button onClick={handleLogout}>
 										<ListItemIcon><AccountCircleIcon /></ListItemIcon>
-										<ListItemText primary='Sign Out' />
+										<ListItemText primary='Sign Out'  />
 									</ListItem>	
 								) : (
-									<ListItem button onClick={() => router.push('/login')}>
-										<ListItemIcon><AccountCircleIcon /></ListItemIcon>
-										<ListItemText primary='Sign In' />
-									</ListItem>	
+									<>
+										<ListItem button onClick={() => router.push('account/login')}>
+											<ListItemIcon><AccountCircleIcon /></ListItemIcon>
+											<ListItemText primary='Sign In' />
+										</ListItem>	
+
+										<ListItem button onClick={() => router.push('account/register')}>
+											<ListItemIcon><AccountCircleIcon /></ListItemIcon>
+											<ListItemText primary='Register' />
+										</ListItem>	
+									</>
 								)}													
 								
 							</List>

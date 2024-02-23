@@ -1,4 +1,4 @@
-import { createContext, useState } from "react"; // Context: create global function using this context
+import { createContext, useState, useEffect } from "react"; // Context: create global function using this context
 import axios from "axios";
 import { useRouter } from "next/router";
 
@@ -10,6 +10,10 @@ export const AuthenticationProvider = ({ children }) => {
     const [error, setError] = useState(null)
 
     const router = useRouter()
+
+    useEffect(() => {
+        checkIfUserLoggedIn(), []
+    })
 
     //Login User     
 
@@ -100,6 +104,14 @@ export const AuthenticationProvider = ({ children }) => {
 
     const logout = async () => {
         try {
+            // Remove the http cookie
+
+            await axios.post('http://localhost:3000/api/logout')
+
+            // remove the access token and the user from the state
+
+            setUser(null)
+            setAccessToken(null)
 
         } catch (error) {
             if (error.response && error.response.data) {
@@ -119,8 +131,34 @@ export const AuthenticationProvider = ({ children }) => {
         }
     }
 
+    const checkIfUserLoggedIn = async () => {
+      
+        try {
+              // api request to api/iser in nextjs
+            await axios.post()
+
+            // set user and access token in state
+        } catch(error) {
+            if (error.response && error.response.data) {
+                setError(error.response.data.message)
+                return
+              } else if (error.request) {
+                setError('Something went wrong')
+                return
+              } else {
+                setError('Something went wrong')
+                return
+              }
+
+              console.error('Error', error.message);
+              setError('Somethin went wrong')     
+              return 
+        }
+        
+    }
+
     return (
-        <AuthenticationContext.Provider value={{user, accessToken, error, login, register}}>
+        <AuthenticationContext.Provider value={{ user, accessToken, error, login, register, logout }}>
             {children}
         </AuthenticationContext.Provider>
     )
