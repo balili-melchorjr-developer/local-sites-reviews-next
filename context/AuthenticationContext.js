@@ -10,10 +10,10 @@ export const AuthenticationProvider = ({ children }) => {
     const [error, setError] = useState(null)
 
     const router = useRouter()
-
+  
     useEffect(() => {
-        checkIfUserLoggedIn(), []
-    })
+        checkIfUserLoggedIn()
+    }, [])
 
     //Login User     
 
@@ -135,9 +135,13 @@ export const AuthenticationProvider = ({ children }) => {
       
         try {
               // api request to api/iser in nextjs
-            await axios.post()
-
+            const { data } = await axios.post('http://localhost:3000/api/user')
+         
             // set user and access token in state
+
+            setUser(data.user)
+            setAccessToken(data.access)
+
         } catch(error) {
             if (error.response && error.response.data) {
                 setError(error.response.data.message)

@@ -67,12 +67,12 @@ const Nav = () => {
 									</ListItem>	
 								) : (
 									<>
-										<ListItem button onClick={() => router.push('account/login')}>
+										<ListItem button onClick={() => router.push('/account/login')}>
 											<ListItemIcon><AccountCircleIcon /></ListItemIcon>
 											<ListItemText primary='Sign In' />
 										</ListItem>	
 
-										<ListItem button onClick={() => router.push('account/register')}>
+										<ListItem button onClick={() => router.push('/account/register')}>
 											<ListItemIcon><AccountCircleIcon /></ListItemIcon>
 											<ListItemText primary='Register' />
 										</ListItem>	
