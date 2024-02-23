@@ -33,11 +33,15 @@ export default function RegisterPage() {
   
   const router = useRouter()
 
-//   const {login} = useContext(AuthenticationContext)
+  const {register} = useContext(AuthenticationContext)
 
   const submitHandler = (e) => {
     e.preventDefault()
-    // login({username, password})
+   
+    if (password !== password2) {
+      console.error('Password do not match')
+    }
+     register({username, email, password})
   }
   
   return (
